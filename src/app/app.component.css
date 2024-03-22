@@ -1,0 +1,10 @@
+main.wrap-page{
+  display: flex;
+}
+main.wrap-page > section{
+  height: 100vh;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
