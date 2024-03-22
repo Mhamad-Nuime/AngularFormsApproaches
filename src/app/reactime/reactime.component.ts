@@ -7,7 +7,7 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
   imports: [ReactiveFormsModule],
   template: `
     <div class="reactive">
-      <form [formGroup]='group'>
+      <form [formGroup]='group' (ngSubmit)="onSubmit()">
         <h2>Reactive Login Form</h2>
         <p>
           <label for="email"></label
@@ -17,8 +17,7 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
             name="user-email"
             placeholder="Enter Your Email :"
             autocomplete="on"
-            autocorrect
-            [formControl]="emailControl"
+            formControlName="emailControl"
           />
         </p>
         <p>
@@ -28,24 +27,22 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
             id="password"
             name="user-password"
             placeholder="Enter Your Password :"
-            [formControl]="passwordControl"
+            formControlName="password"
           />
         </p>
-        <button type="submit" (click)="onSubmit()">OK</button>
+        <button type="submit">OK</button>
       </form>
     </div>
   `,
   styleUrl: './reactime.component.css',
 })
 export class ReactimeComponent {
-  group= new FormGroup('');
-  emailControl = new FormControl('');
-  passwordControl = new FormControl('');
+  group= new FormGroup({
+                        emailControl : new FormControl(''),
+                        passwordControl : new FormControl('')});
   onSubmit() : Boolean{
-    console.log(`the Entered Email is : ${this.emailControl.value}
-      and the password is : ${this.passwordControl.value}`);
     console.log(`.........................................`);
-    console.log(`the Group Value is : ${this.group.controls}`)
+    console.log(`The User Email is : ${this.group.value.emailControl} and The User Password is : ${this.group.value.passwordControl}`)
       return false;
   }
 }
