@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reactime',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   template: `
     <div class="reactive">
-      <form [formGroup]='group' (ngSubmit)="onSubmit()">
+      <form [formGroup]='userInfo' (ngSubmit)="onSubmit()" >
         <h2>Reactive Login Form</h2>
         <p>
           <label for="email"></label
@@ -17,7 +18,7 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
             name="user-email"
             placeholder="Enter Your Email :"
             autocomplete="on"
-            formControlName="emailControl"
+            formControlName="userEmail"
           />
         </p>
         <p>
@@ -27,22 +28,27 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
             id="password"
             name="user-password"
             placeholder="Enter Your Password :"
-            formControlName="password"
+            formControlName="userPassword"
           />
         </p>
         <button type="submit">OK</button>
       </form>
     </div>
+    <pre>{{this.userInfo.value | json }}</pre>
   `,
   styleUrl: './reactime.component.css',
 })
 export class ReactimeComponent {
-  group= new FormGroup({
-                        emailControl : new FormControl(''),
-                        passwordControl : new FormControl('')});
+  userInfo = new FormGroup({
+                        userEmail : new FormControl(''),
+                        userPassword : new FormControl('')});
   onSubmit() : Boolean{
     console.log(`.........................................`);
-    console.log(`The User Email is : ${this.group.value.emailControl} and The User Password is : ${this.group.value.passwordControl}`)
+    console.log(`The User Email is : ${this.userInfo.value.userEmail} and The User Password is : ${this.userInfo.value.userPassword}`);
+    this.userInfo.setValue({
+      userEmail: '',
+      userPassword: ''
+    });
       return false;
   }
 }
