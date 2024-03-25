@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reactime',
@@ -7,7 +7,7 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
   imports: [ReactiveFormsModule],
   template: `
     <div class="reactive">
-      <form [formGroup]='group' (ngSubmit)="onSubmit()">
+      <form [formGroup]='userInfo' (ngSubmit)="onSubmit()">
         <h2>Reactive Login Form</h2>
         <p>
           <label for="email"></label
@@ -17,7 +17,7 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
             name="user-email"
             placeholder="Enter Your Email :"
             autocomplete="on"
-            formControlName="emailControl"
+            formControlName="email"
           />
         </p>
         <p>
@@ -30,19 +30,24 @@ import { FormGroup, FormControl,ReactiveFormsModule } from '@angular/forms';
             formControlName="password"
           />
         </p>
-        <button type="submit">OK</button>
+        <p>
+          <button type="submit">Submit Your Data</button>
+        </p>
       </form>
     </div>
   `,
   styleUrl: './reactime.component.css',
 })
 export class ReactimeComponent {
-  group= new FormGroup({
-                        emailControl : new FormControl(''),
-                        passwordControl : new FormControl('')});
-  onSubmit() : Boolean{
-    console.log(`.........................................`);
-    console.log(`The User Email is : ${this.group.value.emailControl} and The User Password is : ${this.group.value.passwordControl}`)
-      return false;
+  userInfo = new FormGroup({
+                        email : new FormControl(''),
+                        password: new FormControl('')});
+  onSubmit() : void {
+    console.log(`The User Email is : ${this.userInfo.value.email} and The User Password is : ${this.userInfo.value.password}`);
+
+    this.userInfo.setValue({
+      email: '',
+      password: ''
+    });
   }
 }

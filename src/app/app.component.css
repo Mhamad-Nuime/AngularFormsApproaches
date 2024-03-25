@@ -7,4 +7,7 @@ main.wrap-page > section{
   display: flex;
   justify-content: center;
   align-items: center;
+  &.vertical-layout{
+    flex-direction: column;
+  }
 }

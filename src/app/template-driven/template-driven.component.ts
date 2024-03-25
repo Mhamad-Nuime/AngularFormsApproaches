@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-
+import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-template-driven',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   template: `
     <div class="reactive">
-      <form action="">
+      <form #form='ngForm' (ngSubmit)="onSubmit(form)">
         <h2>Template Driven Login Form</h2>
         <p>
           <label for="email"></label
           ><input
             type="email"
             id="email"
-            name="user-email"
+            name="email"
             placeholder="Enter Your Email :"
+            [(ngModel)]='this.userInfo.email'
           />
         </p>
         <p>
@@ -22,16 +24,31 @@ import { Component } from '@angular/core';
           ><input
             type="password"
             id="password"
-            name="user-password"
+            name="password"
             placeholder="Enter Your Password :"
+            [(ngModel)]='this.userInfo.password'
           />
         </p>
-        <button type="submit">OK</button>
+        <p>
+        <button type="submit">Submit Your Data</button>
+        </p>
       </form>
     </div>
   `,
   styleUrl: './template-driven.component.css'
 })
 export class TemplateDrivenComponent {
+  userInfo = {
+    email: '',
+    password: ''
+  }
+  onSubmit( form : NgForm){
+    console.warn(`this is the email address : ${this.userInfo.email} the password is : ${this.userInfo.password}`);
+    console.log(`this is the email address : ${form.value.email} the password is : ${form.value.password}`);
 
+    this.userInfo = {
+      email: '',
+      password: ''
+    };
+  }
 }
